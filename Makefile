@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    $(MAKE)file                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
@@ -12,11 +12,10 @@
 
 CC = cc
 NAME = libftprintf.a
-SRCS = ft_printf.c
+SRCS = ft_printf.c $(wildcard srcs/*.c)
 CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 INC = -I libft
-LDFLAGS = -L./libft
 
 all: $(NAME)
 
@@ -27,13 +26,14 @@ $(OBJS): %.o:%.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 ./libft/libft.a:
-	make -C libft
+	$(MAKE) -C libft
 clean:
+	$(MAKE) clean -C libft
 	rm -f $(OBJS)
-	make clean -C libft
+	
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C libft
+	# $(MAKE) fclean -C libft
 
 re: fclean all
 .PHONY: all clean fclean re

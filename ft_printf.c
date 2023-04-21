@@ -12,70 +12,47 @@
 
 #include "ft_printf.h"
 
-static int	format_c(va_list args)
+static void	check_formatter(t_format *formatter)
 {
-	ft_putchar_fd(va_arg(args, int), 1);
-	return (1);
-}
-
-static void	check_formatter(va_list args)
-{
-	format_c(args);
+	*formatter++ = format_c;
+	*formatter++ = format_string;
+	*formatter++ = format_p;
+	*formatter++ = format_d;
+	*formatter++ = format_i;
+	*formatter++ = format_u;
+	*formatter++ = format_x;
+	*formatter++ = format_upperx;
+	*formatter++ = format_percent;
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int			i;
 	va_list		args;
-	size_t		size;
-	int			contains;
+	int			size;
+	t_format	formatter[9];
+	char		*contains;
 
 	i = 0;
+	check_formatter(formatter);
+	contains = (char *) ft_strchr(SPECIFIER, format[i++]);
 	va_start(args, format);
-	contains = (int) ft_strchr(SPECIFIER, *format + 1);
-	size = ft_strlen(format);
-	while (*format != '\0')
+	size = 0;
+	while (format[i] != '\0')
 	{
-		if ((*format == MARKER) && (contains))
+		if ((format[i] == MARKER) && (ft_strchr(SPECIFIER, format[++i] != -1)))
 		{
-			check_formatter(args);
-			i += 2;
+			size += formatter[contains - SPECIFIER](args);
 		}
 		else
 		{
-			ft_putchar_fd(*format, 1);
+			ft_putchar_fd(format[i], 1);
+			size++;
 		}
-		format++;
+		i++;
 	}
-	va_end(args);
-	return (size);
+	return (va_end(args), size);
 }
 
-		// if (*string == DELIMITER && ft_strnchr(FORMATS, *(string + 1)) != -1)
-		// 	length += formatters[ft_strnchr(FORMATS, *(++string))](ap);
-
-/* int	ft_printf(const char *format, ...)
-{
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	size = ft_strlen(format);
-	while (i < size)
-	{
-		if (format == '%')
-		{
-			if (check_SPECIFIERs(&format[i + 1]))
-			{
-
-				//allocate space for SPECIFIER?
-				i += 2;
-			}
-		}
-		else
-			i++;
-	}
-	return (size);
-} */
-
-
+	// int			*contains;
+	// contains = (int *) ft_strchr(SPECIFIER, format[++i] != -1);

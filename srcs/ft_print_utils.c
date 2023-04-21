@@ -10,13 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "../ft_printf.h"
 
-int		format_string(va_list args);
-int		format_p(va_list args);
-int		format_d(va_list args);
-int		format_i(va_list args);
-int		format_u(va_list args);
-int		format_x(va_list args);
-int		format_upperx(va_list args);
-int		format_percent(va_list args);
+int	format_i(va_list args)
+{
+	ft_putnbr_fd(va_arg(args, int), 1);
+	return (1);
+}
+
+int	format_u(va_list args)
+{
+	ft_putnbr_fd(va_arg(args, unsigned int), 1);
+	return (1);
+}
+
+int	format_x(va_list args)
+{
+	ft_putnbr_fd(va_arg(args, unsigned int), 1);
+	return (1);
+}
+
+int	format_upperx(va_list args)
+{
+	ft_putnbr_fd(va_arg(args, unsigned int), 1);
+	return (1);
+}
+
+int	format_percent(va_list args)
+{
+	ft_putchar_fd(va_arg(args, int), 1);
+	return (1);
+}

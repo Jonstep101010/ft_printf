@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int	main(void)
-{
-	ft_printf("Hello: %c", "c");
-	return (0);
-}
+// int	main(void)
+// {
+// 	ft_printf("Hello: %c", 'c');
+// 	return (0);
+// }
 
 // int	main(void)
 // {
