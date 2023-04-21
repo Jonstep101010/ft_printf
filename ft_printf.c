@@ -35,15 +35,13 @@ int	ft_printf(const char *format, ...)
 
 	i = 0;
 	check_formatter(formatter);
-	contains = (char *) ft_strchr(SPECIFIER, format[i++]);
+	contains = (char *) ft_strchr(SPECIFIER, format[i++] != -1);
 	va_start(args, format);
 	size = 0;
 	while (format[i] != '\0')
 	{
-		if ((format[i] == MARKER) && (ft_strchr(SPECIFIER, format[++i] != -1)))
-		{
+		if ((format[i] == MARKER) && (contains))
 			size += formatter[contains - SPECIFIER](args);
-		}
 		else
 		{
 			ft_putchar_fd(format[i], 1);
