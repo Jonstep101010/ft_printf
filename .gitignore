@@ -52,3 +52,5 @@ Mkfile.old
 dkms.conf
 ft_printf.o
 libftprintf.a
+.DS_Store
+errors.txt
