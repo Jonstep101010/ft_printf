@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/25 19:53:02 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:23:53 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,19 @@ int	put_ultoa_count(unsigned int n)
 	return (count);
 }
 
-int	put_hex(size_t ptr, int c)
+int	put_hex_st(size_t ptr)
 {
-	char	*base;
-	size_t	len;
-	int		count;
+	char		*base;
+	size_t		len;
+	int			count;
 
 	base = "0123456789abcdef";
-	if (c == 'X')
-		base = "0123456789ABCDEF";
 	count = 0;
 	len = ft_strlen(base);
 	if (ptr >= len)
 	{
-		count += put_hex(ptr / len, c);
-		count += put_hex(ptr % len, c);
+		count += put_hex_st(ptr / len);
+		count += put_hex_st(ptr % len);
 	}
 	else
 	{
@@ -57,6 +55,29 @@ int	put_hex(size_t ptr, int c)
 	return (count);
 }
 
+int	put_hex_ll(long long nb, int c)
+{
+	char		*base;
+	long long	len;
+	int			count;
+
+	base = "0123456789abcdef";
+	if (c == 'X')
+		base = "0123456789ABCDEF";
+	count = 0;
+	len = (long long) ft_strlen(base);
+	if (nb >= len)
+	{
+		count += put_hex_ll(nb / len, c);
+		count += put_hex_ll(nb % len, c);
+	}
+	else
+	{
+		count++;
+		write (1, (base + nb), 1);
+	}
+	return (count);
+}
 /* void	s_reverse(char *s)
 {
 	char	tmp;

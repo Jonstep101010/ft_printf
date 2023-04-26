@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:11:30 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/25 19:20:14 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:09:02 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 int	main(void)
 {
+	// ft_printf(" %x ", LONG_MAX);
+	// int	val = 0;
+	printf("\nreturn value own: %d\n", ft_printf("own function: %x", LONG_MAX));
+	printf("return value org: %d", printf("\norg function: %x\n", LONG_MAX));
+	printf("\n- - - - - - - - - - \n");
+	// val = INT_MIN;
+	// val = LONG_MAX;
+	// val = LONG_MIN;
+	// val = ULONG_MAX;
+	// val = -42;
 	// ft_printf("Hello: %c", 'c');
 	// printf("\nReturn Value of ft_printf 1: %d\n", ft_printf("%%\n"));
 	// char	*str;
@@ -33,8 +43,6 @@ int	main(void)
 	// char str[] = "sanoj";
 	// s_reverse(str);
 	// printf("%s", str);
-	printf("\nreturn value own: %d", ft_printf("own function: %p\n", (void*)INT_MAX));
-	printf("\nreturn value org: %d", printf("org function: %p\n", (void *)INT_MAX));
 	// put_hex((size_t)str);
 	// printf("\n%p", &str);
 	// ft_printf("%u", -200000);

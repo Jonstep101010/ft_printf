@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/25 19:42:32 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:21:48 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_formatter(va_list args, int specifier)
 {
 	if (specifier == 'c')
-		return (format_c(args));
+		return (ft_putchar_fd(va_arg(args, int), 1), 1);
 	if (specifier == 's')
 		return (format_string(args));
 	if (specifier == 'p')
@@ -27,7 +27,7 @@ static int	check_formatter(va_list args, int specifier)
 	if (specifier == 'u')
 		return (format_u(args));
 	if (specifier == 'x' || specifier == 'X')
-		return (put_hex(va_arg(args, size_t), specifier));
+		return (put_hex_ll(va_arg(args, unsigned int), specifier));
 	return (0);
 }
 

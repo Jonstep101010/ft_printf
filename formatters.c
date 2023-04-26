@@ -6,17 +6,11 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:45:40 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/25 19:52:58 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:19:50 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	format_c(va_list args)
-{
-	ft_putchar_fd(va_arg(args, int), 1);
-	return (1);
-}
 
 int	format_string(va_list args)
 {
@@ -37,7 +31,7 @@ int	format_p(va_list args)
 	ptr = va_arg(args, char *);
 	ft_putstr_fd("0x", 1);
 	length = 2;
-	length += put_hex((size_t)&*ptr, 'x');
+	length += put_hex_st((size_t)&*ptr);
 	// printf("\n%p\n", ptr);
 	// ptrint = ft_atoi(ptr);
 	// printf("\n%p\n", &ptr);
@@ -79,7 +73,14 @@ int	format_u(va_list args)
 	return (length);
 }
 
-// int		format_x(va_list args);
+// int	format_x(va_list args, int specifier)
+// {
+// 	int	length;
+
+// 	length = 0;
+// 	length += put_hex(va_arg(args, size_t), specifier);
+// 	return (length);
+// }
 // int		format_upperx(va_list args);
 // int		format_percent(va_list args);
 
