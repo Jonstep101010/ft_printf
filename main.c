@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:11:30 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/26 12:09:02 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:13:55 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	main(void)
 {
 	// ft_printf(" %x ", LONG_MAX);
 	// int	val = 0;
-	printf("\nreturn value own: %d\n", ft_printf("own function: %x", LONG_MAX));
-	printf("return value org: %d", printf("\norg function: %x\n", LONG_MAX));
+	printf("\nreturn value own: %d\n", ft_printf("own function: %x", 42));
+	printf("return value org: %d", printf("\norg function: %x\n", 42));
 	printf("\n- - - - - - - - - - \n");
 	// val = INT_MIN;
 	// val = LONG_MAX;
