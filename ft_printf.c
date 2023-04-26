@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/26 14:23:54 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:10:19 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 static int	check_formatter(va_list args, int specifier)
 {
 	if (specifier == 'c')
-		return (ft_putchar_fd(va_arg(args, int), 1), 1);
+		return (format_c(args));
 	if (specifier == 's')
 		return (format_string(args));
 	if (specifier == 'p')
 		return (format_p(args));
 	if (specifier == '%')
-		return (ft_putchar_fd('%', 1), 1);
+		return (write(1, &specifier, 1));
 	if (specifier == 'd' || specifier == 'i')
 		return (format_di(args));
 	if (specifier == 'u')
 		return (format_u(args));
 	if (specifier == 'x' || specifier == 'X')
-		return (put_hex_ll((long long)va_arg(args, unsigned int), specifier));
+		return (put_hex((size_t)va_arg(args, unsigned int), specifier));
 	return (0);
 }
 
@@ -52,13 +52,13 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar_fd(format[i], 1);
+			if (write(1, &format[i], 1) == -1)
+				return (-1);
 			size++;
 		}
 		i++;
 	}
-	va_end(args);
-	return (size);
+	return (va_end(args), size);
 }
 
 //add stuff
