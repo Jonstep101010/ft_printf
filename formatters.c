@@ -69,7 +69,7 @@ int	format_di(va_list args)
 
 int	format_u(va_list args)
 {
-	unsigned int	n;
+	int	n;
 
 	n = va_arg(args, unsigned int);
 	if (n < 0)
