@@ -54,3 +54,4 @@ ft_printf.o
 libftprintf.a
 .DS_Store
 errors.txt
+libft
