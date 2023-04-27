@@ -38,7 +38,7 @@ all: $(NAME)
 # 	make -C $(INC)
 clean:
 	rm -f $(OBJS)
-	# make clean -C $(INC)
+	make clean -C libft
 fclean: clean
 	rm -f $(NAME)
 	make fclean -C libft
