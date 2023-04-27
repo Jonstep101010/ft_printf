@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:23:58 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/26 20:06:45 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:54:15 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # define SPECIFIER "cspdiuxX%"
 # define MARKER	'%'
+
+# define FAIL -1
+// # define WRITE_FAIL -17
+// # define SUCCESS 0
 
 # include "libft/libft.h"
 # include <stdarg.h>
@@ -28,6 +32,9 @@ int		format_p(va_list args);
 int		format_di(va_list args);
 int		format_u(va_list args);
 int		format_c(va_list args);
+
 int		put_ultoa_count(unsigned int n);
 int		put_hex(size_t ptr, int specifier);
+int		put_str(char *s);
+int		check_write(int check);
 #endif

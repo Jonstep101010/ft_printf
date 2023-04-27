@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/26 20:10:19 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:34:11 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 static int	check_formatter(va_list args, int specifier)
 {
+	int	check;
+	
 	if (specifier == 'c')
-		return (format_c(args));
+		check = format_c(args);
 	if (specifier == 's')
-		return (format_string(args));
+		check = format_string(args);
 	if (specifier == 'p')
-		return (format_p(args));
+		check = format_p(args);
 	if (specifier == '%')
-		return (write(1, &specifier, 1));
+		check = write(1, &specifier, 1);
 	if (specifier == 'd' || specifier == 'i')
-		return (format_di(args));
+		check = format_di(args);
 	if (specifier == 'u')
-		return (format_u(args));
+		check = format_u(args);
 	if (specifier == 'x' || specifier == 'X')
-		return (put_hex((size_t)va_arg(args, unsigned int), specifier));
-	return (0);
+		check = put_hex((size_t)va_arg(args, unsigned int), specifier);
+	return (check);
 }
 
 int	ft_printf(const char *format, ...)
@@ -36,6 +38,7 @@ int	ft_printf(const char *format, ...)
 	va_list		args;
 	int			size;
 	int			i;
+	int			check;
 
 	i = 0;
 	size = 0;
@@ -48,7 +51,10 @@ int	ft_printf(const char *format, ...)
 		{
 			if (format[i + 1] == '\0')
 				break ;
-			size += check_formatter(args, format[++i]);
+			check = check_formatter(args, format[++i]);
+			if (check == -1)
+				return (-1);
+			size += check;
 		}
 		else
 		{
