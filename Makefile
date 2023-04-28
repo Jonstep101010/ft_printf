@@ -6,7 +6,7 @@
 #    By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 12:49:48 by jschwabe          #+#    #+#              #
-#    Updated: 2023/04/27 15:19:47 by jschwabe         ###   ########.fr        #
+#    Updated: 2023/04/28 14:40:17 by jschwabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
-SRCS = ft_printf.c formatters.c put_utils.c
+SRCS = ft_printf.c formatters.c formatters_hex.c put_utils.c
 
 DEPS = ft_printf.h
 LIBFT = libft/libft.a

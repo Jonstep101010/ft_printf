@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/27 19:48:04 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:39:46 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,48 @@ int	put_ultoa_count(unsigned int n)
 {
 	char	*nbrs;
 	int		count;
+	int		check;
 
+	check = 0;
 	count = 0;
 	nbrs = "0123456789";
-	if (n > 9)
+	if (n >= 10)
 	{
-		count += put_ultoa_count(n / 10);
-		count += put_ultoa_count(n % 10);
+		check = put_ultoa_count(n / 10);
+		if (check == FAIL)
+			return (-1);
+		count += check;
+		check = put_ultoa_count(n % 10);
+		if (check == FAIL)
+			return (-1);
+		count += check;
 	}
 	else
 	{
-		if (write(1, (nbrs + n3), 1) == FAIL)
+		if (write(1, (nbrs + n), 1) == FAIL)
 			return (FAIL);
 		count++;
 	}
 	return (count);
 }
 
-int	put_hex(size_t ptr, int c)
+int	put_hex(size_t ptr, char *base)
 {
-	char		*base;
 	int			count;
+	int			check;
 
-	if (c == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
+	check = 0;
 	count = 0;
-	if (ptr >= 16)
+	if (ptr > 15)
 	{
-		count += put_hex(ptr / 16, c);
-		count += put_hex(ptr % 16, c);
+		check = put_hex(ptr / 16, base);
+		if (check == FAIL)
+			return (-1);
+		count += check;
+		check = put_hex(ptr % 16, base);
+		if (check == FAIL)
+			return (-1);
+		count += check;
 	}
 	else
 	{

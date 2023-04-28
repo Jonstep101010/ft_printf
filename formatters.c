@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:45:40 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/27 19:46:46 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:57:06 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ int	format_string(va_list args)
 	return (put_str(str));
 }
 
-int	format_p(va_list args)
-{
-	void	*ptr;
-	int		length;
-
-	ptr = va_arg(args, char *);
-	length = put_str("0x");
-	if (length != FAIL)
-		length += put_hex((size_t)ptr, 'x');
-	if (length < 2)
-		return (FAIL);
-	return (length);
-}
-
 int	format_u(va_list args)
 {
 	int	n;
@@ -57,7 +43,7 @@ int	format_u(va_list args)
 	if (n < 0)
 		n = UINT_FAST32_MAX + n + 1;
 	length = put_ultoa_count(n);
-	if (length < 0)
+	if (length == FAIL)
 		return (FAIL);
 	return (length);
 }
@@ -75,3 +61,8 @@ int	format_di(va_list args)
 	return (length);
 }
 
+int	format_percent(va_list args)
+{
+	(void)args;
+	return (ft_putchar('%'));
+}

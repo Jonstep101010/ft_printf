@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:23:58 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/27 18:54:15 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:59:05 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,21 @@
 # include <stdarg.h>
 # include <limits.h>
 
-// typedef int	(*t_format)(va_list);
+typedef int	(*t_format)(va_list);
 
 int		ft_printf(const char *format, ...);
+
+int		format_c(va_list args);
 int		format_string(va_list args);
 int		format_p(va_list args);
 int		format_di(va_list args);
 int		format_u(va_list args);
-int		format_c(va_list args);
+
+int		format_x(va_list args);
+int		format_upperx(va_list args);
+int		format_percent(va_list args);
 
 int		put_ultoa_count(unsigned int n);
-int		put_hex(size_t ptr, int specifier);
+int		put_hex(size_t ptr, char *base);
 int		put_str(char *s);
-int		check_write(int check);
 #endif
