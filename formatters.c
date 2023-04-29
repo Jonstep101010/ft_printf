@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   formatters.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschwabe <jonas.paul.schwabe@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:45:40 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/28 16:57:06 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:29:28 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	format_c(va_list args)
 int	format_string(va_list args)
 {
 	char	*str;
-	int		i;
 
-	i = 0;
 	str = va_arg(args, char *);
 	if (!str)
 		str = "(null)";
