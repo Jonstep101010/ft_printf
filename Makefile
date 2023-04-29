@@ -6,7 +6,7 @@
 #    By: jschwabe <jonas.paul.schwabe@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 12:49:48 by jschwabe          #+#    #+#              #
-#    Updated: 2023/04/29 11:41:46 by jschwabe         ###   ########.fr        #
+#    Updated: 2023/04/29 12:06:02 by jschwabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 OBJS = $(SRCS:.c=.o)
 TESTFILES = main.c
 
-$(LIBFT): $(LIBFT_DIR)
+$(LIBFT): libftrm
 	git clone -b ft_printf https://github.com/Jonstep101010/libft.git libft
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
