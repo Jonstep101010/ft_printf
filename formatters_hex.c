@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   formatters_hex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschwabe <jonas.paul.schwabe@gmail.com>    +#+  +:+       +#+        */
+/*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:32:44 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/29 11:39:52 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:14:23 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	format_p(va_list args)
 	int		length;
 
 	ptr = va_arg(args, char *);
-	if (!ptr)
-		return (put_str("(nil)"));
 	length = put_str("0x");
 	if (length != FAIL)
 		length += put_hex((size_t)ptr, "0123456789abcdef");

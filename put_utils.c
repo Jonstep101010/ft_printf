@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/28 14:39:46 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:21:50 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,3 @@ int	put_str(char *s)
 	}
 	return (i);
 }
-
-// int	check_write(int check)
-// {
-// 	if (check != -1)
-// 		return (0);
-// 	return (check);
-// }
