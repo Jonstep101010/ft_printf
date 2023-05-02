@@ -6,107 +6,109 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/28 19:31:00 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:16:32 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <string.h>
+
+/*
+@brief calls putnbr with specific parameters
+@param n maintains org val
+@return length returned by put_nbr call (-1 if failure)
+*/
+static int	format_u(long n)
+{
+	if (n < 0)
+		return (put_nbr((size_t)UINT_FAST32_MAX + n + 1, "0123456789", 10));
+	return (put_nbr((size_t)n, "0123456789", 10));
+}
+
+/*
+@brief formats integer for printing
+@param n maintains org val
+@return length of printed string (-1 if failure)
+*/
+static int	format_di(long n)
+{
+	char	*str;
+	int		len;
+
+	str = ft_itoa(n);
+	if (!str)
+		return (-1);
+	len = put_str(str);
+	free(str);
+	return (len);
+}
+
+/*
+@brief formats for printing memory address of ptr
+@param ptr to get mem for
+@return length of printing (-1 if failure)
+*/
+static int	format_p(size_t *ptr)
+{
+	int		len;
+
+	len = put_str("0x");
+	if (len < 2)
+		return (FAIL);
+	return (len += put_nbr((size_t)ptr, "0123456789abcdef", 16));
+}
 
 /*check specifier for formatting functions*/
-static int	check_formatter(va_list args, int specifier)
+static int	check_formatter(va_list args, int specifier, int *size)
 {
 	int	check;
 
 	if (specifier == 'c')
-		check = format_c(args);
+		check = ft_putchar(va_arg(args, int));
 	if (specifier == 's')
-		check = format_string(args);
+		check = put_str(va_arg(args, char *));
 	if (specifier == 'p')
-		check = format_p(args);
-	if (specifier == 'd')
-		check = format_di(args);
-	if (specifier == 'i')
-		check = format_di(args);
+		check = (format_p(va_arg(args, void *)));
+	if ((specifier == 'd') || (specifier == 'i'))
+		check = format_di((long)va_arg(args, int));
 	if (specifier == 'u')
-		check = format_u(args);
+		check = format_u((long)va_arg(args, unsigned int));
 	if (specifier == 'x')
-		check = format_x(args);
+		check = put_nbr(va_arg(args, unsigned int), "0123456789abcdef", 16);
 	if (specifier == 'X')
-		check = format_upperx(args);
+		check = put_nbr(va_arg(args, unsigned int), "0123456789ABCDEF", 16);
 	if (specifier == '%')
-		check = format_percent(args);
-	return (check);
+		check = ft_putchar('%');
+	if (check < 0)
+		return (FAIL);
+	return (*size += check);
 }
 
+/*
+@brief basic functionality of printf
+@param input, formatted input
+@return length (-1 if failure)
+*/
 int	ft_printf(const char *format, ...)
 {
 	va_list		args;
 	int			size;
-	int			check;
 
 	size = 0;
 	va_start(args, format);
-	if (!format)
-		return (-1);
-	while (*format != '\0')
+	while (*format)
 	{
-		if ((*format == MARKER) && (*(format + 1) != '\0'))
+		if (*format == MARKER)
 		{		
-			check = check_formatter(args, *(++format));
-			if (check == -1)
+			if (*(format + 1) && check_formatter(args, *(++format), &size) < 0)
 				return (-1);
-			size += check;
 		}
-		else if ((write(1, &*format, 1) == -1) || (check == -1))
-			return (-1);
 		else
+		{
+			if (ft_putchar(*format) <= FAIL)
+				return (-1);
 			size++;
+		}
 		format++;
 	}
 	return (va_end(args), size);
 }
-
-/*t_format to functions for matching formatting*/
-/* static void	assign_formats(t_format *formats)
-{
-	*formats++ = format_c;
-	*formats++ = format_string;
-	*formats++ = format_p;
-	*formats++ = format_di;
-	*formats++ = format_di;
-	*formats++ = format_u;
-	*formats++ = format_x;
-	*formats++ = format_upperx;
-	*formats++ = format_percent;
-} */
-
-/*Printf implementation using t_list instead of if statements*/
-/* int	ft_printf(const char *string, ...)
-{
-	t_format	formats[9];
-	va_list		args;
-	int			check;
-	int			size;
-
-	assign_formats(formats);
-	va_start(args, string);
-	size = 0;
-	while (*string)
-	{
-		if ((*string == MARKER) && (*(string + 1) != '\0') && \
-		ft_strnchr(SPECIFIER, *(string + 1)) != -1)
-		{
-			check = (formats[ft_strnchr(SPECIFIER, *(++string))](args));
-			if (check == -1)
-				return (-1);
-			size += check;
-		}
-		else if (((ft_putchar(*string)) == -1) || (check == FAIL))
-			return (-1);
-		else
-			size++;
-		string++;
-	}
-	return (va_end(args), size);
-} */

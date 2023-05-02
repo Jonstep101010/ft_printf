@@ -6,78 +6,32 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/30 15:21:50 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/05/02 20:42:42 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	put_ultoa_count(unsigned int n)
+int	put_nbr(size_t n, char *base, size_t slen)
 {
-	char	*nbrs;
-	int		count;
-	int		check;
+	int	size;
 
-	check = 0;
-	count = 0;
-	nbrs = "0123456789";
-	if (n >= 10)
+	size = 0;
+	if (n >= slen)
 	{
-		check = put_ultoa_count(n / 10);
-		if (check == FAIL)
-			return (-1);
-		count += check;
-		check = put_ultoa_count(n % 10);
-		if (check == FAIL)
-			return (-1);
-		count += check;
-	}
-	else
-	{
-		if (write(1, (nbrs + n), 1) == FAIL)
+		size += put_nbr(n / slen, base, slen);
+		if (size < 0)
 			return (FAIL);
-		count++;
 	}
-	return (count);
-}
-
-int	put_hex(size_t ptr, char *base)
-{
-	int			count;
-	int			check;
-
-	check = 0;
-	count = 0;
-	if (ptr > 15)
-	{
-		check = put_hex(ptr / 16, base);
-		if (check == FAIL)
-			return (-1);
-		count += check;
-		check = put_hex(ptr % 16, base);
-		if (check == FAIL)
-			return (-1);
-		count += check;
-	}
-	else
-	{
-		if (write(1, (base + ptr), 1) == FAIL)
-			return (FAIL);
-		count++;
-	}
-	return (count);
+	size += ft_putchar(base[n % slen]);
+	return (size);
 }
 
 int	put_str(char *s)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (write(1, &s[i], 1) == FAIL)
-			return (FAIL);
-		i++;
-	}
-	return (i);
+	if (!s)
+		s = "(null)";
+	if (write(1, s, ft_strlen(s)) < 0)
+		return (FAIL);
+	return (ft_strlen(s));
 }
