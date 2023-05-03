@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschwabe <jonas.paul.schwabe@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:23:58 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/04/28 16:59:05 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/05/03 10:30:39 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 # define SPECIFIER "cspdiuxX%"
 # define MARKER	'%'
-
 # define FAIL -1
-// # define WRITE_FAIL -17
-// # define SUCCESS 0
 
 # include "libft/libft.h"
 # include <stdarg.h>
@@ -38,7 +35,6 @@ int		format_x(va_list args);
 int		format_upperx(va_list args);
 int		format_percent(va_list args);
 
-int		put_ultoa_count(unsigned int n);
-int		put_hex(size_t ptr, char *base);
+int		put_nbr(size_t n, char *base, size_t slen);
 int		put_str(char *s);
 #endif
