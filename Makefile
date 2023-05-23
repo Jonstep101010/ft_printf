@@ -6,7 +6,7 @@
 #    By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 12:49:48 by jschwabe          #+#    #+#              #
-#    Updated: 2023/05/02 21:26:15 by jschwabe         ###   ########.fr        #
+#    Updated: 2023/05/23 18:53:58 by jschwabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,11 @@ all: $(NAME)
 %.o: %.c $(DEPS)
 	$(SEE)$(CC) $(CFLAGS) -c $< -o $@
 
-libft:
-	git clone -b ft_printf https://github.com/Jonstep101010/libft.git libft
+update:
+	git stash
+	git pull
+	git submodule update --init
+	git stash pop
 
 $(NAME): $(OBJS)
 	$(SEE)make -C libft
@@ -52,10 +55,7 @@ fclean: clean
 norm: $(SRCS)
 	$(shell norminette | grep Error)
 
-libftrm:
-	$(SEE)rm -rf $(LIBFT_DIR)
-	$(SEE)mkdir -p $(LIBFT_DIR)
 re: fclean all
 
 # not associated with a file name
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re update
