@@ -1,61 +1,38 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/19 12:49:48 by jschwabe          #+#    #+#              #
-#    Updated: 2023/05/23 18:53:58 by jschwabe         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME		:= libftprintf.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+VPATH		:= src/
+SRCS		:= ft_printf.c put_utils.c
 
-NAME = libftprintf.a
-SRCS = ft_printf.c put_utils.c
+INC			:= -I ./include -I ./libft
+LIBFT		:= $(LIBFT_DIR)/libft.a
+LIBFT_DIR	:= ./libft
 
-DEPS = ft_printf.h
-LIBFT = $(LIBFT_DIR)/libft.a
-LIBFT_DIR = libft
-OBJS = $(SRCS:.c=.o)
-SEE = @
-# TESTFILES = main.c
+BUILD_DIR	:= .build
+OBJS		:= $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
+
+CC			:= clang
+CFLAGS		:= -Wall -Wextra -Werror
 
 all: $(NAME)
-%.o: %.c $(DEPS)
-	$(SEE)$(CC) $(CFLAGS) -c $< -o $@
 
-update:
-	git stash
-	git pull
-	git submodule update --init
-	git stash pop
+$(BUILD_DIR)/%.o: %.c
+	$(CC) $(CFLAGS) -MMD -MP $(INC) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(SEE)make -C libft
-	$(SEE)cp $(LIBFT) $@
-	$(SEE)ar -rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	cp libft/libft.a $@
+	ar -rcs $(NAME) $(OBJS)
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
 clean:
-	$(SEE)rm -f $(OBJS)
-	$(SEE)make -C libft clean 
+	rm -f $(OBJS)
+	make -C $(LIBFT_DIR) clean
+
 fclean: clean
-	$(SEE)rm -f $(NAME)
-	$(SEE)make -C libft fclean
-
-# tclean: clean
-# 	rm -f $(TESTFILES:.c=.o)
-# 	rm -f ./a.out
-
-# test: all
-# 	$(CC) $(CFLAGS) $(NAME) $(TESTFILES) -fsanitize=address && ./a.out
-
-norm: $(SRCS)
-	$(shell norminette | grep Error)
+	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-# not associated with a file name
-.PHONY: all clean fclean re update
+.PHONY: all clean fclean re
