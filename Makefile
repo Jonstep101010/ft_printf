@@ -26,7 +26,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS:.o=.d)
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean

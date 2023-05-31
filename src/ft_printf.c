@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2023/05/31 13:40:05 by jschwabe         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:00:28 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	format_p(size_t *ptr)
 	len = put_str("0x");
 	if (len < 2)
 		return (FAIL);
-	return (len += put_nbr((size_t)ptr, "0123456789abcdef", 16));
+	len += put_nbr((size_t)ptr, "0123456789abcdef", 16);
+	return (len);
 }
 
 /*check specifier for formatting functions*/
@@ -62,6 +63,7 @@ static int	check_formatter(va_list args, int specifier, int *size)
 {
 	int	check;
 
+	check = 0;
 	if (specifier == 'c')
 		check = ft_putchar(va_arg(args, int));
 	if (specifier == 's')
