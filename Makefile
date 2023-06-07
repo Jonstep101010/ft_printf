@@ -25,6 +25,8 @@ all: $(NAME)
 
 # Build object files from source files
 $(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(BUILD_DIR)
+	@$(info creating .build directory)
 	$(CC) $(CFLAGS) -MMD -MP $(INC) -c $< -o $@
 
 # Build the final library
@@ -39,6 +41,7 @@ $(LIBFT):
 # Clean object files
 clean:
 	rm -f $(OBJS) $(OBJS:.o=.d)
+	rm -rf $(BUILD_DIR)
 	make -C $(LIBFT_DIR) clean
 
 # Clean all generated files
@@ -51,3 +54,4 @@ re: fclean all
 
 # Phony targets
 .PHONY: all clean fclean re
+# .SILENT: all
