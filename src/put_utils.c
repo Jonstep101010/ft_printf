@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2024/02/14 22:01:28 by jschwabe         ###   ########.fr       */
+/*   Updated: 2024/02/14 23:58:51 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	dprintf_put_nbr(size_t n, int fd)
 	return (size);
 }
 
-int	dprintf_put_hex(size_t n, const char *hex, int fd)
+int	dprintf_put_hex(unsigned int n, const char *hex, int fd)
 {
 	int	size;
 
@@ -48,13 +48,20 @@ int	dprintf_put_hex(size_t n, const char *hex, int fd)
 	return (size);
 }
 
-int	dprintf_put_str(char *s, int fd)
+int	dprintf_put_str(const char *s, int fd)
 {
+	size_t	len;
+
 	if (!s)
 		s = "(null)";
-	if (write(fd, s, ft_strlen(s)) < 0)
-		return (FAIL);
-	return (ft_strlen(s));
+	len = 0;
+	while (s[len] != '\0')
+	{
+		if (dprintf_putchar(s[len], fd) < 0)
+			return (FAIL);
+		len++;
+	}
+	return (len);
 }
 
 int	dprintf_ptr(uintptr_t ptr, int fd)

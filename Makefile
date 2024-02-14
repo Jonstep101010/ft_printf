@@ -3,7 +3,7 @@ NAME		:= libftprintf.a
 
 # Source files
 VPATH		:= src/
-SRCS		:= ft_vdprintf.c ft_printf.c put_utils.c
+SRCS		:= ft_ltoa.c ft_vdprintf.c ft_printf.c put_utils.c
 
 # Include directories
 INC			:= -I ./include -I ./libft

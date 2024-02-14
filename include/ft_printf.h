@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:23:58 by jschwabe          #+#    #+#             */
-/*   Updated: 2024/02/14 22:04:56 by jschwabe         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:46:33 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define FAIL -1
 
-# include "libft.h"
 # include <stdarg.h>
 # include <limits.h>
 # include <string.h>
