@@ -6,59 +6,71 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:40:48 by jschwabe          #+#    #+#             */
-/*   Updated: 2024/02/14 21:31:03 by jschwabe         ###   ########.fr       */
+/*   Updated: 2024/02/14 23:58:51 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+#include <unistd.h>
 
-int	printf_put_nbr(size_t n)
+int	dprintf_putchar(char c, int fd)
+{
+	return (write(fd, &c, 1));
+}
+
+int	dprintf_put_nbr(size_t n, int fd)
 {
 	int	size;
 
 	size = 0;
 	if (n >= 10)
 	{
-		size += printf_put_nbr(n / 10);
+		size += dprintf_put_nbr(n / 10, fd);
 		if (size < 0)
 			return (FAIL);
 	}
-	size += ft_putchar(DECIMAL[n % 10]);
+	size += dprintf_putchar(DECIMAL[n % 10], fd);
 	return (size);
 }
 
-int	printf_put_hex(size_t n, const char *hex)
+int	dprintf_put_hex(unsigned int n, const char *hex, int fd)
 {
 	int	size;
 
 	size = 0;
 	if (n >= 16)
 	{
-		size += printf_put_hex(n / 16, hex);
+		size += dprintf_put_hex(n / 16, hex, fd);
 		if (size < 0)
 			return (FAIL);
 	}
-	size += ft_putchar(hex[n % 16]);
+	size += dprintf_putchar(hex[n % 16], fd);
 	return (size);
 }
 
-int	printf_put_str(char *s)
+int	dprintf_put_str(const char *s, int fd)
 {
+	size_t	len;
+
 	if (!s)
 		s = "(null)";
-	if (write(1, s, ft_strlen(s)) < 0)
-		return (FAIL);
-	return (ft_strlen(s));
+	len = 0;
+	while (s[len] != '\0')
+	{
+		if (dprintf_putchar(s[len], fd) < 0)
+			return (FAIL);
+		len++;
+	}
+	return (len);
 }
 
-int	printf_ptr(uintptr_t ptr)
+int	dprintf_ptr(uintptr_t ptr, int fd)
 {
 	int			len;
 
-	len = printf_put_str("0x");
+	len = dprintf_put_str("0x", fd);
 	if (ptr == 0)
-		return (ft_putchar('0') + len);
-	len += printf_put_hex(ptr, HEX_LOWER);
+		return (dprintf_putchar('0', fd) + len);
+	len += dprintf_put_hex(ptr, HEX_LOWER, fd);
 	return (len);
 }

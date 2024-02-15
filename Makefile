@@ -3,14 +3,10 @@ NAME		:= libftprintf.a
 
 # Source files
 VPATH		:= src/
-SRCS		:= ft_printf.c put_utils.c
+SRCS		:= ft_ltoa.c ft_vdprintf.c ft_printf.c put_utils.c
 
 # Include directories
-INC			:= -I ./include -I ./libft
-
-# Library file and directory
-LIBFT		 = $(LIBFT_DIR)/libft.a
-LIBFT_DIR	:= ./libft
+INC			:= -I ./include
 
 # Build directory and object files
 BUILD_DIR	:= .build
@@ -30,24 +26,17 @@ $(BUILD_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -MMD -MP $(INC) -c $< -o $@
 
 # Build the final library
-$(NAME): $(OBJS) $(LIBFT)
-	cp $(LIBFT) $@
+$(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
-
-# Build the required library
-$(LIBFT):
-	make -C $(LIBFT_DIR)
 
 # Clean object files
 clean:
 	rm -f $(OBJS) $(OBJS:.o=.d)
 	rm -rf $(BUILD_DIR)
-	make -C $(LIBFT_DIR) clean
 
 # Clean all generated files
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
 
 # Clean and build all
 re: fclean all
