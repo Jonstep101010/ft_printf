@@ -6,14 +6,14 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 22:30:29 by jschwabe          #+#    #+#             */
-/*   Updated: 2024/02/14 21:46:04 by jschwabe         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:22:48 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdlib.h>
 
-static size_t	ndigits(long int n)
+static size_t	printf_ndigits(long int n)
 {
 	size_t		digits;
 	long int	num;
@@ -60,7 +60,7 @@ char	*ft_ltoa(long n)
 	long long	num;
 
 	num = n;
-	digits = ndigits(num);
+	digits = printf_ndigits(num);
 	s = malloc(sizeof(char) * (digits + 1));
 	if (!s)
 		return (NULL);
