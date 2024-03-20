@@ -6,7 +6,7 @@
 /*   By: jschwabe <jschwabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:08:13 by jschwabe          #+#    #+#             */
-/*   Updated: 2024/02/14 23:58:21 by jschwabe         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:26:38 by jschwabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ int	dprintf_format_di(long n, int fd)
 	return (len);
 }
 
-int	specifier(va_list *args, int specifier, int *size, int fd)
+int	specifier(va_list args, int specifier, int *size, int fd)
 {
 	int	check;
 
 	check = 0;
 	if (specifier == 'c')
-		check = dprintf_putchar(va_arg(*args, int), fd);
+		check = dprintf_putchar(va_arg(args, int), fd);
 	(void)specifier, (void)fd;
 	if (specifier == 's')
-		check = dprintf_put_str(va_arg(*args, const char *), fd);
+		check = dprintf_put_str(va_arg(args, const char *), fd);
 	else if (specifier == 'p')
-		check = dprintf_ptr(va_arg(*args, uintptr_t), fd);
+		check = dprintf_ptr(va_arg(args, uintptr_t), fd);
 	else if ((specifier == 'd') || (specifier == 'i'))
-		check = dprintf_format_di((long)va_arg(*args, int), fd);
+		check = dprintf_format_di((long)va_arg(args, int), fd);
 	else if (specifier == 'u')
-		check = dprintf_format_u((long)va_arg(*args, unsigned int), fd);
+		check = dprintf_format_u((long)va_arg(args, unsigned int), fd);
 	else if (specifier == 'x')
-		check = dprintf_put_hex(va_arg(*args, unsigned int), HEX_LOWER, fd);
+		check = dprintf_put_hex(va_arg(args, unsigned int), HEX_LOWER, fd);
 	else if (specifier == 'X')
-		check = dprintf_put_hex(va_arg(*args, unsigned int), HEX_UPPER, fd);
+		check = dprintf_put_hex(va_arg(args, unsigned int), HEX_UPPER, fd);
 	else if (specifier == '%')
 		check = dprintf_putchar('%', fd);
 	if (check < 0)
@@ -80,7 +80,7 @@ int	ft_vdprintf(int fd, const char *format, va_list args)
 		if (*format == '%')
 		{
 			++format;
-			if (specifier(&args, (int)*format, &size, fd) < 0)
+			if (specifier(args, (int)*format, &size, fd) < 0)
 				return (-1);
 		}
 		else
